@@ -27,21 +27,17 @@
 </head>
 <body>
 
-<h1><%=title%></h1>
+<h1><%=product.name%></h1>
 
 <div class="container">
-    <%for(i=0;i<data.length;i++){%>
     <div class="card">
         <img src="https://example.com/image.jpg" alt="product">
-        <h3><%=data[i].name%></h3>
-        <p>Category: <%=data[i]['category']%></p>
-        <p>Price: $<%=data[i]['price']%></p>
-        <a href="/products/<%= data[i]._id %>" class="read-more">
-            Read More
-        </a>
+        <h3><%=product.name%></h3>
+        <p>Category: <%=product['category']%></p>
+        <p>Price: $<%=product['price']%></p>
+        <button>Add To Cart</button>
     </div>
     <!-- Add more cards manually or dynamically later -->
-    <%}%>
 </div>
 
 </body>
