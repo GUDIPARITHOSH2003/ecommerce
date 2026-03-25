@@ -2,6 +2,7 @@
 const express=require("express")
 const app=express()
 const { MongoClient,ObjectId  } = require("mongodb");
+const userRouter=require("./routes/user.routes")
 require("dotenv").config()
 
 
@@ -17,20 +18,20 @@ let collection;
 async function main() {
     await mClient.connect();
     console.log("MongoDB connected");
-
     collection = mClient.db('ecommerce').collection('products');
+    app.use('/user',userRouter(collection))
 }
 
-app.get('/products',async (req,res)=>{
-    // res.render('index')
-    const data=await collection.find().toArray()
-    res.render('index',{title:'E-COMMERCE',data})
-})
+// app.get('/products',async (req,res)=>{
+//     // res.render('index')
+//     const data=await collection.find().toArray()
+//     res.render('index',{title:'E-COMMERCE',data})
+// })
 
-app.get('/products/:id',async (req,res)=>{
-    let product = await collection.findOne({_id:new ObjectId(req.params.id)})
-    res.render('product',{product})
-})
+// app.get('/products/:id',async (req,res)=>{
+//     let product = await collection.findOne({_id:new ObjectId(req.params.id)})
+//     res.render('product',{product})
+// })
 
 app.listen(port,(err)=>{
     if (err) throw err
