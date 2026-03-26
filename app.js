@@ -3,6 +3,7 @@ const express=require("express")
 const app=express()
 const { MongoClient,ObjectId  } = require("mongodb");
 const userRouter=require("./routes/user.routes")
+const adminRouter=require("./routes/admin.routes")
 require("dotenv").config()
 
 
@@ -12,6 +13,7 @@ const mClient=new MongoClient(process.env.MONGO_URI)
 
 app.set('view engine','ejs')
 app.set('views','./views')
+app.use(express.urlencoded({ extended: true }));
 
 let collection;
 
@@ -20,18 +22,10 @@ async function main() {
     console.log("MongoDB connected");
     collection = mClient.db('ecommerce').collection('products');
     app.use('/user',userRouter(collection))
+    app.use('/admin',adminRouter(collection))
 }
 
-// app.get('/products',async (req,res)=>{
-//     // res.render('index')
-//     const data=await collection.find().toArray()
-//     res.render('index',{title:'E-COMMERCE',data})
-// })
 
-// app.get('/products/:id',async (req,res)=>{
-//     let product = await collection.findOne({_id:new ObjectId(req.params.id)})
-//     res.render('product',{product})
-// })
 
 app.listen(port,(err)=>{
     if (err) throw err
