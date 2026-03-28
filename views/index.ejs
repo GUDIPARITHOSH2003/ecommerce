@@ -43,6 +43,30 @@
     <!-- Add more cards manually or dynamically later -->
     <%}%>
 </div>
+<div>
+        <h2>Filter Products</h2>
+        <form action="/user/filter" method="GET" style="margin-bottom: 20px;">
+        
+        <!-- Category Filter -->
+        <label>Category:</label>
+        <select name="category">
+            <option value="">All</option>
+            <option value="Footwear">Footwear</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Furniture">Furniture</option>
+            <option value="Clothing">Clothing</option>
+        </select>
+
+        <!-- Price Filter -->
+        <label>Min Price:</label>
+        <input type="number" name="lcost" placeholder="Min">
+
+        <label>Max Price:</label>
+        <input type="number" name="hcost" placeholder="Max">
+
+        <button type="submit">Apply Filter</button>
+        </form>
+</div>
 
 </body>
 </html>
