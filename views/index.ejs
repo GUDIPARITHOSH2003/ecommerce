@@ -28,7 +28,13 @@
 <body>
 
 <h1><%=title%></h1>
-
+<div style="position: absolute; top: 20px; right: 20px;">
+    <a href="/user/cart">
+        <button style="padding: 10px 15px; cursor: pointer;">
+            🛒 Go to Cart
+        </button>
+    </a>
+</div>
 <div class="container">
     <%for(i=0;i<data.length;i++){%>
     <div class="card">

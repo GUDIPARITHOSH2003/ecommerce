@@ -1,9 +1,10 @@
 const express=require("express");
 const { ObjectId  } = require("mongodb");
-function adminRouter(collection){
+const {getData,deleteOneProduct}=require("../controller/apiController")
+function adminRouter(collection,db){
     const router=express.Router();
     router.get('/',async (req,res)=>{
-        const data=await collection.find().toArray();
+        const data=await getData(db,'products',{});
         res.render('admin.ejs',{title:'Admin Page',data})
     })
     router.post('/add-product',async (req,res)=>{
@@ -18,9 +19,11 @@ function adminRouter(collection){
     })
     router.post('/delete-product/:id',async (req,res)=>{
         const id=req.params.id
-        await collection.deleteOne({
+        colName='products'
+        query={
             _id:new ObjectId(id)
-        })
+        }
+        deleteOneProduct(db,colName,query)
         res.redirect('/admin/')
     })
     return router

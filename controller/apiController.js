@@ -35,8 +35,27 @@ async function addToCart(db,colName,data){
     }
 }
 
+async function deleteOneProduct(db,colName,query){
+    try{
+        await db.collection(colName).deleteOne(query)
+    }catch(err){
+        console.log(err)
+    }
+}
+
+async function getCartData(db,colName){
+    try{
+        const data=await db.collection(colName).find().toArray()
+        return data
+    }catch(err){
+        console.log(err)
+    }
+}
+
 module.exports={
     getData,
     getsingleData,
-    addToCart
+    addToCart,
+    deleteOneProduct,
+    getCartData
 }

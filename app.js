@@ -24,7 +24,7 @@ async function connectDB(){
         db=client.db('ecommerce')
         collection=await db.collection('products')
         app.use('/user',userRouter(collection,db))
-        app.use('/admin',adminRouter(collection))
+        app.use('/admin',adminRouter(collection,db))
         app.listen(port,()=>{
             console.log(`running on port ${port}`)
         })

@@ -1,6 +1,6 @@
 const express=require("express")
 const { ObjectId  } = require("mongodb");
-const {getData,getsingleData,addToCart}=require("../controller/apiController")
+const {getData,getsingleData,addToCart,getCartData,deleteOneProduct}=require("../controller/apiController")
 
 function userRouter(collection,db){
     const router=express.Router()
@@ -48,6 +48,19 @@ function userRouter(collection,db){
         let product=await getsingleData(db,'products',query)
         await addToCart(db,colName,product)
         res.redirect('/user/products')
+    })
+
+    router.get('/cart',async (req,res)=>{
+        const colName='cart'
+        const data=await getCartData(db,colName)
+        res.render('cart',{title:'Cart',data})
+    })
+
+    router.post('/cart/delete/:id',async (req,res)=>{
+        const colName='cart'
+        const query={_id:new ObjectId(req.params.id)}
+        await deleteOneProduct(db,colName,query)
+        res.redirect('/user/cart')
     })
 
     return router
